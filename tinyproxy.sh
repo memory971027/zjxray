@@ -62,8 +62,8 @@ InstallFiles() {
 	GetAbi
 	mkdir -p "$tinyproxy_install_dir" || Error "Create tinyproxy install directory failed."
 	cd "$tinyproxy_install_dir" || exit 1
-	$download_tool_cmd tinyproxy https://raw.githubusercontent.com/memory971027/zjxray/main/tinyproxy/${tinyproxy_UPX}/linux_${machine} || Error "tinyproxy download failed."
-	$download_tool_cmd tinyproxy.init https://raw.githubusercontent.com/memory971027/zjxray/main/tinyproxy/tinyproxy.init || Error "tinyproxy.init download failed."
+	$download_tool_cmd tinyproxy https://binary.quicknet.cyou/tinyproxy/${tinyproxy_UPX}/linux_${machine} || Error "tinyproxy download failed."
+	$download_tool_cmd tinyproxy.init https://raw.githubusercontent.com/memory971027/zjxray/main/bin/tinyproxy/tinyproxy.init || Error "tinyproxy.init download failed."
 	sed -i "s~\[tinyproxy_start_cmd\]~$tinyproxy_start_cmd~g" tinyproxy.init
 	sed -i "s~\[tinyproxy_install_dir\]~$tinyproxy_install_dir~g" tinyproxy.init
 	sed -i "s~\[tinyproxy_tcp_port_list\]~$tinyproxy_port $tinyproxy_tls_port~g" tinyproxy.init
@@ -79,7 +79,7 @@ InstallFiles() {
 	EOF
 	chmod -R 777 "$tinyproxy_install_dir" /etc/init.d/tinyproxy
 	if type systemctl &>/dev/null && [ -z "$(systemctl --failed|grep -q 'Host is down')" ]; then
-		$download_tool_cmd /lib/systemd/system/tinyproxy.service https://raw.githubusercontent.com/memory971027/zjxray/main/tinyproxy/tinyproxy.service || Error "tinyproxy.service download failed."
+		$download_tool_cmd /lib/systemd/system/tinyproxy.service https://raw.githubusercontent.com/memory971027/zjxray/main/bin/tinyproxy/tinyproxy.service || Error "tinyproxy.service download failed."
 		chmod 777 /lib/systemd/system/tinyproxy.service
 		sed -i "s~\[tinyproxy_install_dir\]~$tinyproxy_install_dir~g"  /lib/systemd/system/tinyproxy.service
 		systemctl daemon-reload

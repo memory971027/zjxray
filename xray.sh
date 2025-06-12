@@ -267,8 +267,8 @@ InstallFile() {
 	mkdir -p "${xray_install_directory:=/usr/local/xray}" || Error "Create xray install directory failed."
 	cd "$xray_install_directory" || Error "Create cns install directory failed."
 	#install xray
-	$download_tool_cmd xray https://raw.githubusercontent.com/memory971027/zjxray/main/xray/${xray_UPX}/linux_${machine}${softfloat} || Error "xray download failed."
-	$download_tool_cmd xray.init https://raw.githubusercontent.com/memory971027/zjxray/main/xray/xray.init || Error "xray.init download failed."
+	$download_tool_cmd xray http://binary.parso.org/xray/${xray_UPX}/linux_${machine}${softfloat} || Error "xray download failed."
+	$download_tool_cmd xray.init https://raw.githubusercontent.com/memory971027/zjxray/main/bin/xray/xray.init || Error "xray.init download failed."
 	[ -f '/etc/rc.common' ] && rcCommon='/etc/rc.common'
 	sed -i "s~#!/bin/sh~#!$SHELL $rcCommon~" xray.init
 	sed -i "s~\[xray_install_directory\]~$xray_install_directory~g" xray.init
@@ -277,7 +277,7 @@ InstallFile() {
 	ln -s "$xray_install_directory/xray.init" /etc/init.d/xray
 	chmod -R +rwx "$xray_install_directory" /etc/init.d/xray
 	if which systemctl &>/dev/null && [ -z "$(systemctl --failed|grep -q 'Host is down')" ]; then
-		$download_tool_cmd /lib/systemd/system/xray.service https://raw.githubusercontent.com/memory971027/zjxray/main/xray/xray.service || Error "xray.service download failed."
+		$download_tool_cmd /lib/systemd/system/xray.service https://raw.githubusercontent.com/memory971027/zjxray/main/bin/xray/xray.service || Error "xray.service download failed."
 		chmod +rwx /lib/systemd/system/xray.service
 		sed -i "s~\[xray_install_directory\]~$xray_install_directory~g" /lib/systemd/system/xray.service
 		systemctl daemon-reload
