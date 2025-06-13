@@ -5,25 +5,24 @@
 # Required-Stop:     $network
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: Tinyproxy start script
+# Short-Description: Start tinyproxy at boot time
+# Description:       Enable service provided by tinyproxy.
 ### END INIT INFO
 
-[ -x "[tinyproxy_install_dir]/tinyproxy" ] || exit 0
 case "$1" in
-    start)
-        [tinyproxy_install_dir]/tinyproxy -c [tinyproxy_install_dir]/tinyproxy.conf
-        ;;
-    stop)
-        killall tinyproxy
-        ;;
-    restart)
-        $0 stop
-        $0 start
-        ;;
-    *)
-        echo "Usage: $0 {start|stop|restart}"
-        exit 1
-        ;;
+  start)
+    [tinyproxy_install_dir]/tinyproxy &
+    ;;
+  stop)
+    killall tinyproxy
+    ;;
+  restart)
+    $0 stop
+    $0 start
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+    exit 1
 esac
 
 exit 0

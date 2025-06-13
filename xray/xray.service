@@ -1,10 +1,6 @@
 [Unit]
 Description=Xray Service
-After=network.target
-
 [Service]
-ExecStart=[xray_install_directory]/xray -c [xray_install_directory]/xray.json
-Restart=on-failure
-
+ExecStart=/usr/local/xray/xray -config /usr/local/xray/xray.json
 [Install]
 WantedBy=multi-user.target

@@ -1,10 +1,6 @@
 [Unit]
-Description=amy4Server Service
-After=network.target
-
+Description=Amy4Server Service
 [Service]
-ExecStart=[amy4Server_install_dir]/amy4Server -c [amy4Server_install_dir]/amy4Server.json
-Restart=on-failure
-
+ExecStart=/usr/local/amy4Server/amy4Server -config /usr/local/amy4Server/amy4Server.json
 [Install]
 WantedBy=multi-user.target

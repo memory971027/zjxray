@@ -1,10 +1,6 @@
 [Unit]
 Description=CNS Service
-After=network.target
-
 [Service]
-ExecStart=[cns_install_dir]/cns -c [cns_install_dir]/cns.json
-Restart=on-failure
-
+ExecStart=/usr/local/cns/cns
 [Install]
 WantedBy=multi-user.target

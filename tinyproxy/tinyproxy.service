@@ -3,8 +3,8 @@ Description=Tinyproxy Service
 After=network.target
 
 [Service]
-ExecStart=[tinyproxy_install_dir]/tinyproxy -c [tinyproxy_install_dir]/tinyproxy.conf
-Restart=on-failure
+ExecStart=[tinyproxy_install_dir]/tinyproxy
+Restart=always
 
 [Install]
 WantedBy=multi-user.target
